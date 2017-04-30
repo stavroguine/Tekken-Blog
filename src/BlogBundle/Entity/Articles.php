@@ -2,76 +2,105 @@
 
 namespace BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="blog")
- */
+* @ORM\Entity(repositoryClass="BlogBundle\Repository\BlogRepository")
+* @ORM\Table(name="blog")
+* @ORM\HasLifecycleCallbacks()
+*/
 
 
 class Articles
 {
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+
+        $this->comments = new ArrayCollection();
+
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    * @ORM\PreUpdate
+    */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+    /**
+    * @ORM\Id
+    * @ORM\Column(type="integer")
+    * @ORM\GeneratedValue(strategy="AUTO")
+    */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
-     */
+    * @ORM\Column(type="string")
+    */
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
+    * @ORM\Column(type="string", length=100)
+    */
     protected $author;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="text")
+    */
     protected $blog;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     */
+    * @ORM\Column(type="string", length=20)
+    */
     protected $image;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="text")
+    */
     protected $tags;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+    */
 
     protected $comments;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
+    * @ORM\Column(type="datetime")
+    */
     protected $created;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
+    * @ORM\Column(type="datetime")
+    */
     protected $updated;
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
+    * Get id
+    *
+    * @return integer
+    */
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Articles
-     */
+    * Set title
+    *
+    * @param string $title
+    *
+    * @return Articles
+    */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -80,22 +109,22 @@ class Articles
     }
 
     /**
-     * Get title
-     *
-     * @return string
-     */
+    * Get title
+    *
+    * @return string
+    */
     public function getTitle()
     {
         return $this->title;
     }
 
     /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return Articles
-     */
+    * Set author
+    *
+    * @param string $author
+    *
+    * @return Articles
+    */
     public function setAuthor($author)
     {
         $this->author = $author;
@@ -104,22 +133,22 @@ class Articles
     }
 
     /**
-     * Get author
-     *
-     * @return string
-     */
+    * Get author
+    *
+    * @return string
+    */
     public function getAuthor()
     {
         return $this->author;
     }
 
     /**
-     * Set blog
-     *
-     * @param string $blog
-     *
-     * @return Articles
-     */
+    * Set blog
+    *
+    * @param string $blog
+    *
+    * @return Articles
+    */
     public function setBlog($blog)
     {
         $this->blog = $blog;
@@ -128,22 +157,25 @@ class Articles
     }
 
     /**
-     * Get blog
-     *
-     * @return string
-     */
-    public function getBlog()
+    * Get blog
+    *
+    * @return string
+    */
+    public function getBlog($length = null)
     {
+        if (false === is_null($length) && $length > 0)
+        return substr($this->blog, 0, $length);
+        else
         return $this->blog;
     }
 
     /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Articles
-     */
+    * Set image
+    *
+    * @param string $image
+    *
+    * @return Articles
+    */
     public function setImage($image)
     {
         $this->image = $image;
@@ -152,22 +184,22 @@ class Articles
     }
 
     /**
-     * Get image
-     *
-     * @return string
-     */
+    * Get image
+    *
+    * @return string
+    */
     public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * Set tags
-     *
-     * @param string $tags
-     *
-     * @return Articles
-     */
+    * Set tags
+    *
+    * @param string $tags
+    *
+    * @return Articles
+    */
     public function setTags($tags)
     {
         $this->tags = $tags;
@@ -176,22 +208,22 @@ class Articles
     }
 
     /**
-     * Get tags
-     *
-     * @return string
-     */
+    * Get tags
+    *
+    * @return string
+    */
     public function getTags()
     {
         return $this->tags;
     }
 
     /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Articles
-     */
+    * Set created
+    *
+    * @param \DateTime $created
+    *
+    * @return Articles
+    */
     public function setCreated($created)
     {
         $this->created = $created;
@@ -200,22 +232,22 @@ class Articles
     }
 
     /**
-     * Get created
-     *
-     * @return \DateTime
-     */
+    * Get created
+    *
+    * @return \DateTime
+    */
     public function getCreated()
     {
         return $this->created;
     }
 
     /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Articles
-     */
+    * Set updated
+    *
+    * @param \DateTime $updated
+    *
+    * @return Articles
+    */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
@@ -224,12 +256,46 @@ class Articles
     }
 
     /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
+    * Get updated
+    *
+    * @return \DateTime
+    */
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+    * Add comment
+    *
+    * @param \BlogBundle\Entity\Comment $comment
+    *
+    * @return Articles
+    */
+    public function addComment(\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+    * Remove comment
+    *
+    * @param \BlogBundle\Entity\Comment $comment
+    */
+    public function removeComment(\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+    * Get comments
+    *
+    * @return \Doctrine\Common\Collections\Collection
+    */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
