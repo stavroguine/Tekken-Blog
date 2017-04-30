@@ -1,0 +1,30 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <header>
+        <h1>Contact Franz Liszt</h1>
+    </header>
+
+    {% for flashMessage in app.session.flashbag.get('blogger-notice') %}
+    <div class="blogger-notice">
+    {{ flashMessage }}
+    </div>
+    {% endfor %}
+
+    <p>Write to Franz Liszt :</p>
+    <form action="{{ path('BlogBundle_contact') }}"   class="blogger" method="post" >
+        {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.body) }}
+        <input type="submit" value="Submit" />
+
+    {{ form_end(form) }}
+
+</form>
+{% endblock %}

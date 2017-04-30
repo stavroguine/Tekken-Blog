@@ -1,0 +1,25 @@
+BlogBundle_homepage:
+    path:     /
+    defaults: { _controller: BlogBundle:Default:index }
+
+#section about
+BlogBundle_about:
+    path: /about
+    defaults: { _controller: BlogBundle:Content:about }
+    requirements:
+        _method:  GET
+
+#section contact
+BlogBundle_contact:
+    path: /contact
+    defaults: { _controller: BlogBundle:Content:contact }
+    requirements:
+        _method:  GET|POST
+
+#showing Articles
+BlogBundle_blog_show:
+    path:  /{id}
+    defaults: { _controller: BlogBundle:Articles:show }
+    requirements:
+        _method:  GET
+        id: \d+
