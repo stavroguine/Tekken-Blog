@@ -38,4 +38,20 @@ class ContentController extends Controller
         ));
 
     }
+
+    public function sidebarAction()
+    {
+        $em = $this->getDoctrine()
+        ->getEntityManager();
+
+        $tags = $em->getRepository('BlogBundle:Articles')
+        ->getTags();
+
+        $tagWeights = $em->getRepository('BlogBundle:Articles')
+        ->getTagWeights($tags);
+
+        return $this->render('BlogBundle:content:sidebar.html.twig', array(
+            'tags' => $tagWeights
+        ));
+    }
 }
