@@ -18,22 +18,23 @@
 
         <section id="wrapper">
             <header id="header">
-                <div class="top">
-                    {% block navigation %}
-                        <nav>
-                            <ul class="navigation">
-                                <li><a href="{{ path('BlogBundle_homepage') }}">Home</a></li>
-                                <li><a href="{{ path('BlogBundle_about') }}">About</a></li>
-                                <li><a href="{{ path('BlogBundle_contact') }}">Contact</a></li>
-                            </ul>
-                        </nav>
-                    {% endblock %}
-                </div>
+
 
                 <hgroup>
                     <h2>{% block blog_title %}<a href="{{ path('BlogBundle_homepage') }}">Rhapsody</a>{% endblock %}</h2>
                     <h3>{% block blog_tagline %}<a href="#">A Franz Liszt's blog about Symfony</a>{% endblock %}</h3>
                 </hgroup>
+                <div class="top">
+                    {% block navigation %}
+                        <nav>
+                            <ul class="navigation">
+                                <li><a href="{{ path('BlogBundle_homepage') }}">Accueil</a></li>
+                                <li><a href="{{ path('BlogBundle_about') }}">A propos</a></li>
+                                <li><a href="{{ path('BlogBundle_contact') }}">Contact</a></li>
+                            </ul>
+                        </nav>
+                    {% endblock %}
+                </div>
             </header>
 
             <section class="main-col">

@@ -94,29 +94,29 @@ class CommentFixtures extends AbstractFixture implements OrderedFixtureInterface
         $comment->setCreated(new \DateTime("2011-07-25 22:28:42"));
         $manager->persist($comment);
 
-        $comment = new Comment();
-        $comment->setUser('Stanley');
-        $comment->setComment('It\'s not gonna end like this.');
-        $comment->setBlog($manager->merge($this->getReference('blog-3')));
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setUser('Gabriel');
-        $comment->setComment('Oh, come on, Stan. Not everything ends the way you think it should. Besides, audiences love happy endings.');
-        $comment->setBlog($manager->merge($this->getReference('blog-3')));
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setUser('Mile');
-        $comment->setComment('Doesn\'t Bill Gates have something like that?');
-        $comment->setBlog($manager->merge($this->getReference('blog-5')));
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setUser('Gary');
-        $comment->setComment('Bill Who?');
-        $comment->setBlog($manager->merge($this->getReference('blog-5')));
-        $manager->persist($comment);
+        // $comment = new Comment();
+        // $comment->setUser('Stanley');
+        // $comment->setComment('It\'s not gonna end like this.');
+        // $comment->setBlog($manager->merge($this->getReference('blog-3')));
+        // $manager->persist($comment);
+        //
+        // $comment = new Comment();
+        // $comment->setUser('Gabriel');
+        // $comment->setComment('Oh, come on, Stan. Not everything ends the way you think it should. Besides, audiences love happy endings.');
+        // $comment->setBlog($manager->merge($this->getReference('blog-3')));
+        // $manager->persist($comment);
+        //
+        // $comment = new Comment();
+        // $comment->setUser('Mile');
+        // $comment->setComment('Doesn\'t Bill Gates have something like that?');
+        // $comment->setBlog($manager->merge($this->getReference('blog-5')));
+        // $manager->persist($comment);
+        //
+        // $comment = new Comment();
+        // $comment->setUser('Gary');
+        // $comment->setComment('Bill Who?');
+        // $comment->setBlog($manager->merge($this->getReference('blog-5')));
+        // $manager->persist($comment);
 
         $manager->flush();
     }
