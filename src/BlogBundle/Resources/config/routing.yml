@@ -1,33 +1,44 @@
+BlogBundle_homepage_fr:
+    path:     /{_locale}/
+    defaults: { _controller: BlogBundle:Default:index }
+    options:
+        _locale: fr
+
+
 BlogBundle_homepage:
-    path:     /
+    path:     /{_locale}/
     defaults: { _controller: BlogBundle:Default:index }
 
 #section about
 BlogBundle_about:
-    path: /about
+    path: /{_locale}/about
     defaults: { _controller: BlogBundle:Content:about }
     requirements:
         _method:  GET
+        _locale: en|fr
 
 #section contact
 BlogBundle_contact:
-    path: /contact
+    path: /{_locale}/contact
     defaults: { _controller: BlogBundle:Content:contact }
     requirements:
         _method:  GET|POST
+        _locale: en|fr
 
 #showing Articles
 BlogBundle_blog_show:
-    path:  /{id}
+    path:  /{_locale}/{id}
     defaults: { _controller: BlogBundle:Articles:show }
     requirements:
         _method:  GET
         id: \d+
+        _locale: en|fr
 
 #create comment
 BlogBundle_comment_create:
-    path:  /comment/{blog_id}
+    path:  /{_locale}/comment/{blog_id}
     defaults: { _controller: BlogBundle:Comment:create }
     requirements:
         _method:  POST
         blog_id: \d+
+        _locale: en|fr

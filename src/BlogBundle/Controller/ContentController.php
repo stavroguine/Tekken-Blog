@@ -22,8 +22,8 @@ class ContentController extends Controller
 
             if ($form->handleRequest($request)->isValid()) {
                 $message = \Swift_Message::newInstance()
-                ->setSubject('Contact enquiry from symblog')
-                ->setFrom('enquiries@symblog.co.uk')
+                ->setSubject('Message du site de Franz Liszt')
+                ->setFrom('liszt@blacklab.com')
                 ->setTo($this->container->getParameter('rhapsody.emails.contact_email'))
                 ->setBody($this->renderView('BlogBundle:content:contactEmail.txt.twig', array('enquiry' => $enquiry)));
                 $this->get('mailer')->send($message);
@@ -54,4 +54,11 @@ class ContentController extends Controller
             'tags' => $tagWeights
         ));
     }
+
+    public function translationAction($name)
+{
+  return $this->render('BlogBundle:content:translation.html.twig', array(
+    'name' => $name
+  ));
+}
 }
